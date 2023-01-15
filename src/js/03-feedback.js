@@ -46,11 +46,9 @@ function onFormInput(e) {
 	const currentInput = e.target;
 	if (currentInput.name === 'email') {
 		data.email = currentInput.value;
-		console.log(data);
 	}
 	if (currentInput.name === 'message') {
 		data.message = currentInput.value;
-		console.log(data);
 	}
 
 	save(FORM_DATA_KEY, data);
