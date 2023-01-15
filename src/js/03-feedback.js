@@ -14,8 +14,8 @@ const messageEl = document.querySelector("[name = 'message']");
 
 window.addEventListener("DOMContentLoaded", onLoaded);
 
-formEl.addEventListener('input', throttle(onFromInput, 500));
-formEl.addEventListener('submit', onFromSubmit);
+formEl.addEventListener('input', throttle(onFormInput, 500));
+formEl.addEventListener('submit', onFormSubmit);
 
 
 function onLoaded(e) {
@@ -25,24 +25,36 @@ function onLoaded(e) {
 	}
 	emailEl.value = loadedData.email;
 	messageEl.value = loadedData.message;
+	data.email = loadedData.email;
+	data.message = loadedData.message;
 }
 
-function onFromSubmit(e) {
+function onFormSubmit(e) {
 	e.preventDefault();
+	if (emailEl.value === '' || messageEl.value === '') {
+		alert("Обидва поля повинні бути заповнені!");
+		return;
+	}
 	e.currentTarget.reset();
 	console.log(load(FORM_DATA_KEY));
 	localStorage.removeItem(FORM_DATA_KEY);
+	data.email = '';
+	data.message = '';
 }
 
-function onFromInput(e) {
+function onFormInput(e) {
 	const currentInput = e.target;
 	if (currentInput.name === 'email') {
 		data.email = currentInput.value;
+		console.log(data);
 	}
 	if (currentInput.name === 'message') {
 		data.message = currentInput.value;
+		console.log(data);
 	}
 
 	save(FORM_DATA_KEY, data);
+	
 	return;
 }
+	
